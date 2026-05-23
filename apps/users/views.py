@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate
 from .models import User
 from .serializers import RegisterSerializer, UserProfileSerializer
 from django.utils import timezone
+from datetime import timedelta
 from .models import OTP
 from .utils import generate_otp, send_otp_email
 
@@ -161,7 +162,7 @@ class ForgotPasswordView(APIView):
         OTP.objects.create(
             user=user,
             otp_code=otp_code,
-            expires_at=timezone.now() + timezone.timedelta(minutes=10)
+            expires_at=timezone.now() + timedelta(minutes=10)
         )
 
         # send email
