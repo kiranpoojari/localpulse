@@ -1,0 +1,74 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalPulse — Home</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/feed.css">
+    <link rel="stylesheet" href="css/post-card.css">
+    <!-- Leaflet map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            📡 Local<span>Pulse</span>
+        </div>
+        <div class="navbar-actions">
+            <a href="profile.html" class="btn btn-outline btn-sm" id="username-btn">Profile</a>
+            <button class="btn btn-outline btn-sm" onclick="handleLogout()">Logout</button>
+        </div>
+    </nav>
+
+    <!-- FEED -->
+    <div class="feed-layout">
+        <div class="feed-main">
+
+            <!-- location bar -->
+            <div class="location-bar">
+                📍 Showing alerts for: <span id="user-location">Loading...</span>
+            </div>
+
+            <!-- feed header -->
+            <div class="feed-header">
+                <h2>Latest Alerts</h2>
+                <a href="create-post.html" class="create-post-btn">
+                    + Post Alert
+                </a>
+            </div>
+
+            <!-- posts will load here -->
+            <div id="feed-container">
+                <div class="loading">Loading alerts...</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/feed.js"></script>
+    <script>
+        requireAuth();
+
+        // show username in navbar
+        const user = getUser();
+        if (user) {
+            document.getElementById('username-btn').textContent = user.username;
+        }
+
+        async function handleLogout() {
+            await logout();
+        }
+
+        // load feed on page load
+        loadFeed();
+    </script>
+
+</body>
+</html>

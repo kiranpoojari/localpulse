@@ -1,0 +1,181 @@
+ 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #E63946;
+    --primary-dark: #c1121f;
+    --secondary: #1D3557;
+    --accent: #457B9D;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #212529;
+    --text-light: #6c757d;
+    --border: #dee2e6;
+    --success: #2dc653;
+    --warning: #f4a261;
+    --danger: #e63946;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent);
+}
+
+a:hover {
+    color: var(--primary);
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-family: inherit;
+}
+
+input, textarea, select {
+    font-family: inherit;
+    outline: none;
+}
+
+/* NAVBAR */
+.navbar {
+    background: var(--secondary);
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.navbar-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar-brand span {
+    color: var(--primary);
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn {
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+.btn-outline:hover {
+    background: #fff;
+    color: var(--secondary);
+}
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 13px;
+}
+
+/* SEVERITY BADGES */
+.badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-info {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.badge-warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.badge-critical {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* DISPUTED BANNER */
+.disputed-banner {
+    background: #fff3cd;
+    border-left: 4px solid #f4a261;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #856404;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 10px;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+/* LOADING */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-light);
+    font-size: 15px;
+}
+
+/* EMPTY STATE */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+}
+
+.empty-state h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}

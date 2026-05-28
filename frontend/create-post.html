@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Alert — LocalPulse</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            📡 Local<span>Pulse</span>
+        </div>
+        <div class="navbar-actions">
+            <a href="index.html" class="btn btn-outline btn-sm">← Back to Feed</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="auth-card" style="max-width:600px; margin:0 auto;">
+            <h2 style="text-align:left; margin-bottom:24px;">🚨 Post an Alert</h2>
+
+            <div class="error-msg" id="post-error"></div>
+            <div class="success-msg" id="post-success"></div>
+
+            <!-- Post Type -->
+            <div class="form-group">
+                <label>Alert Type</label>
+                <select id="post-type" onchange="handleTypeChange()"
+                    style="width:100%; padding:11px 14px; border:2px solid #dee2e6;
+                    border-radius:8px; font-size:15px; color:#212529;">
+                    <option value="text">Text Only</option>
+                    <option value="photo">Photo Only</option>
+                    <option value="both">Text + Photo</option>
+                </select>
+            </div>
+
+            <!-- Severity -->
+            <div class="form-group">
+                <label>Severity Level</label>
+                <select id="severity"
+                    style="width:100%; padding:11px 14px; border:2px solid #dee2e6;
+                    border-radius:8px; font-size:15px; color:#212529;">
+                    <option value="info">ℹ️ Info — General information</option>
+                    <option value="warning">⚠️ Warning — Caution needed</option>
+                    <option value="critical">🚨 Critical — Immediate danger</option>
+                </select>
+            </div>
+
+            <!-- Text content -->
+            <div class="form-group" id="content-group">
+                <label>Alert Description</label>
+                <textarea id="content" rows="4"
+                    placeholder="Describe the situation clearly. Example: Road blocked near Kundapura bus stand due to flooding. Avoid NH66."
+                    style="width:100%; padding:11px 14px; border:2px solid #dee2e6;
+                    border-radius:8px; font-size:15px; resize:vertical;
+                    color:#212529;"></textarea>
+            </div>
+
+            <!-- Image upload -->
+            <div class="form-group" id="image-group" style="display:none;">
+                <label>Upload Photo</label>
+                <input type="file" id="image" accept="image/*"
+                    style="width:100%; padding:11px 14px; border:2px solid #dee2e6;
+                    border-radius:8px; font-size:15px;">
+                <div id="image-preview" style="margin-top:10px;"></div>
+            </div>
+
+            <!-- Location — auto from registered profile -->
+            <div class="form-group">
+                <label>Location of Incident</label>
+                <input type="text" id="location-display"
+                    readonly
+                    style="width:100%; padding:11px 14px; border:2px solid #dee2e6;
+                    border-radius:8px; font-size:15px; background:#f0f4f8; color:#1D3557; font-weight:600;">
+                <small style="color:#2dc653; font-size:12px; margin-top:4px; display:block;">
+                    ✅ Using your registered location — alerts will show to people in your taluk
+                </small>
+            </div>
+
+            <!-- Manual location override -->
+            <div class="form-group">
+                <div style="background:#fff3cd; border-left:4px solid #f4a261;
+                    padding:10px 14px; border-radius:0 8px 8px 0; margin-bottom:10px;">
+                    <div style="font-size:13px; font-weight:600; color:#856404; margin-bottom:2px;">
+                        📍 Posting about a different location?
+                    </div>
+                    <div style="font-size:12px; color:#856404;">
+                        Example: You are in Kundapura but posting about a flood in Udupi town.
+                        Enter that location below — the alert will show to people in that area.
+                    </div>
+                </div>
+                <label>Enter Other Location (Optional)</label>
+                <div style="display:flex; gap:8px;">
+                    <input type="text" id="manual-location"
+                        placeholder="e.g. Udupi, Mangalore, Manipal"
+                        style="flex:1; padding:11px 14px; border:2px solid #dee2e6;
+                        border-radius:8px; font-size:15px;">
+                    <button onclick="searchLocation()"
+                        style="padding:11px 14px; background:#1D3557; color:#fff;
+                        border-radius:8px; font-size:13px; font-weight:600;
+                        border:none; cursor:pointer;">
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- hidden location fields -->
+            <input type="hidden" id="latitude">
+            <input type="hidden" id="longitude">
+            <input type="hidden" id="city">
+            <input type="hidden" id="district">
+            <input type="hidden" id="state">
+
+            <button class="btn btn-primary btn-block" onclick="handleCreatePost()"
+                style="margin-top:8px; padding:14px; font-size:16px;">
+                🚨 Post Alert
+            </button>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/location.js"></script>
+    <script src="js/create-post.js"></script>
+    <script>
+        requireAuth();
+        // load registered location on page load
+        loadRegisteredLocation();
+    </script>
+
+</body>
+</html>

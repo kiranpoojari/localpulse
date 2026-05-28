@@ -1,0 +1,128 @@
+ 
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1D3557 0%, #457B9D 100%);
+    padding: 20px;
+}
+
+.auth-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.auth-logo {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.auth-logo h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1D3557;
+}
+
+.auth-logo h1 span {
+    color: #E63946;
+}
+
+.auth-logo p {
+    color: #6c757d;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.auth-card h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1D3557;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.2s;
+    color: #212529;
+}
+
+.form-group input:focus {
+    border-color: #457B9D;
+}
+
+.btn-block {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+.error-msg {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    display: none;
+}
+
+.success-msg {
+    background: #d4edda;
+    color: #155724;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    display: none;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.auth-footer a {
+    color: #E63946;
+    font-weight: 600;
+}
+
+.otp-input {
+    text-align: center;
+    font-size: 24px !important;
+    letter-spacing: 8px;
+    font-weight: 700;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}

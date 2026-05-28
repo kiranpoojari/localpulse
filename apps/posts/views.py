@@ -27,13 +27,10 @@ class FeedView(APIView):
     def get(self, request):
         user = request.user
 
+        # if district not set, return empty feed instead of error
         if not user.district:
-            return Response(
-                {'error': 'Please update your location first'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response([])
 
-        # only show posts from same district, not expired
         posts = Post.objects.filter(
             district=user.district,
             expires_at__gt=timezone.now()

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register — LocalPulse</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page">
+
+    <div class="auth-card">
+        <div class="auth-logo">
+            <h1>Local<span>Pulse</span></h1>
+            <p>Stay alert. Stay safe.</p>
+        </div>
+
+        <h2>Create Account</h2>
+
+        <div class="error-msg" id="register-error"></div>
+        <div class="success-msg" id="register-success"></div>
+
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="username" placeholder="Enter your name">
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Minimum 6 characters">
+        </div>
+
+        <!-- Location status — silent detection, professional look -->
+        <div id="location-status"
+            style="background:#e8f4fd; border-left:4px solid #457B9D;
+            padding:12px 16px; border-radius:0 8px 8px 0; margin-bottom:18px;
+            font-size:13px; color:#1D3557; display:flex; align-items:center; gap:8px;">
+            <span style="font-size:18px;">📍</span>
+            <span id="location-status-text">
+                LocalPulse needs your location to show relevant alerts in your area...
+            </span>
+        </div>
+
+        <!-- hidden location fields -->
+        <input type="hidden" id="latitude">
+        <input type="hidden" id="longitude">
+        <input type="hidden" id="city">
+        <input type="hidden" id="district">
+        <input type="hidden" id="state">
+
+        <button class="btn btn-primary btn-block" onclick="handleRegister()">
+            Create Account
+        </button>
+
+        <div class="auth-footer">
+            Already have an account? <a href="login.html">Login</a>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/location.js"></script>
+    <script>
+        requireGuest();
+
+        // silently detect location when page loads
+        window.addEventListener('load', async () => {
+            await detectLocation();
+
+            // update status box after detection
+            if (currentLocation && currentLocation.district) {
+                const statusBox = document.getElementById('location-status');
+                const statusText = document.getElementById('location-status-text');
+
+                statusBox.style.background = '#d4edda';
+                statusBox.style.borderColor = '#2dc653';
+                statusBox.style.color = '#155724';
+                statusText.innerHTML = `✅ Location detected: <strong>${currentLocation.district}</strong>, ${currentLocation.state}`;
+            } else {
+                const statusBox = document.getElementById('location-status');
+                const statusText = document.getElementById('location-status-text');
+                statusBox.style.background = '#f8d7da';
+                statusBox.style.borderColor = '#e63946';
+                statusBox.style.color = '#721c24';
+                statusText.innerHTML = `❌ Location not detected. Please allow location access and refresh the page.`;
+            }
+        });
+
+        async function handleRegister() {
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const district = document.getElementById('district').value.trim();
+
+            if (!username || !email || !password) {
+                showError('register-error', 'Please fill in all fields');
+                return;
+            }
+
+            if (password.length < 6) {
+                showError('register-error', 'Password must be at least 6 characters');
+                return;
+            }
+
+            if (!district) {
+                showError('register-error',
+                    'Location not detected. Please allow location access and refresh the page.');
+                return;
+            }
+
+            const btn = document.querySelector('.btn-primary');
+            btn.textContent = 'Creating account...';
+            btn.disabled = true;
+
+            await register(username, email, password);
+
+            btn.textContent = 'Create Account';
+            btn.disabled = false;
+        }
+
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleRegister();
+        });
+    </script>
+
+</body>
+</html>
